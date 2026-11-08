@@ -7,8 +7,6 @@
 #include "Renderer.h"
 
 int main(int argc, char** argv) {
-    // Application state is owned here and lent to the GLUT callback modules.
-    // Static storage keeps it alive for the whole GLUT main loop.
     static Camera camera;
     static BezierPatch patch;
 

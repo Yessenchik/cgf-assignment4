@@ -14,7 +14,7 @@ BezierPatch* gPatch = nullptr;
 constexpr float kMoveStep = 0.2f;
 constexpr float kRotateStep = 5.0f;
 
-} // namespace
+}
 
 namespace Input {
 
@@ -23,7 +23,7 @@ void init(Camera* camera, BezierPatch* patch) {
     gPatch = patch;
 }
 
-void keyboard(unsigned char key, int /*x*/, int /*y*/) {
+void keyboard(unsigned char key, int, int) {
     switch (key) {
         case 27: // ESC
             std::exit(0);
@@ -82,7 +82,7 @@ void keyboard(unsigned char key, int /*x*/, int /*y*/) {
     glutPostRedisplay();
 }
 
-void specialKeys(int key, int /*x*/, int /*y*/) {
+void specialKeys(int key, int, int) {
     switch (key) {
         case GLUT_KEY_LEFT:
             gCamera->rotate(-kRotateStep, 0.0f);
@@ -104,4 +104,4 @@ void specialKeys(int key, int /*x*/, int /*y*/) {
     glutPostRedisplay();
 }
 
-} // namespace Input
+}

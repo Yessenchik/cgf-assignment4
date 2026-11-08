@@ -18,7 +18,6 @@ void Camera::rotate(float deltaYawDeg, float deltaPitchDeg) {
     yaw_ += deltaYawDeg;
     pitch_ += deltaPitchDeg;
 
-    // Prevent camera from flipping upside down
     if (pitch_ > kMaxPitch) pitch_ = kMaxPitch;
     if (pitch_ < -kMaxPitch) pitch_ = -kMaxPitch;
 }

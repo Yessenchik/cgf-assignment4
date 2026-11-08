@@ -13,7 +13,6 @@ namespace {
 const Camera* gCamera = nullptr;
 const BezierPatch* gPatch = nullptr;
 
-// Flat diffuse term for one triangle, lit from the camera direction.
 float calculateDiffuse(Vec3 a, Vec3 b, Vec3 c) {
     Vec3 edge1 = subtract(b, a);
     Vec3 edge2 = subtract(c, a);
@@ -47,17 +46,14 @@ void drawShadedTriangle(Vec3 a, Vec3 b, Vec3 c) {
 void drawAxes() {
     glBegin(GL_LINES);
 
-    // X axis - Red
     glColor3f(1.0f, 0.0f, 0.0f);
     glVertex3f(0, 0, 0);
     glVertex3f(2, 0, 0);
 
-    // Y axis - Green
     glColor3f(0.0f, 1.0f, 0.0f);
     glVertex3f(0, 0, 0);
     glVertex3f(0, 2, 0);
 
-    // Z axis - Blue
     glColor3f(0.0f, 0.0f, 1.0f);
     glVertex3f(0, 0, 0);
     glVertex3f(0, 0, 2);
@@ -121,7 +117,7 @@ void drawControlPoints() {
     glEnable(GL_DEPTH_TEST);
 }
 
-} // namespace
+}
 
 namespace Renderer {
 
@@ -168,4 +164,4 @@ void reshape(int width, int height) {
     glMatrixMode(GL_MODELVIEW);
 }
 
-} // namespace Renderer
+}
