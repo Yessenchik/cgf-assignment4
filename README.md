@@ -3,8 +3,8 @@
 ### 1. Clone the repository
 
 ```bash
-git clone <YOUR_REPOSITORY_URL>
-cd assignment4
+git clone https://github.com/Yessenchik/cgf-assignment4.git
+cd cgf-assignment4
 ```
 
 ### 2. Configure the project
