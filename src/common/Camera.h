@@ -8,6 +8,8 @@ public:
     static constexpr float kDefaultPitch = 35.0f;
     static constexpr float kDefaultDistance = 10.0f;
     static constexpr float kMaxPitch = 85.0f;
+    static constexpr float kMinDistance = 2.0f;
+    static constexpr float kMaxDistance = 40.0f;
 
     explicit Camera(float yaw = kDefaultYaw,
                     float pitch = kDefaultPitch,
@@ -16,6 +18,7 @@ public:
     void reset();
 
     void rotate(float deltaYawDeg, float deltaPitchDeg);
+    void zoom(float deltaDistance);
 
     Vec3 direction() const;
     Vec3 position() const;

@@ -15,7 +15,6 @@ public:
 
     BezierPatch();
 
-    // 16 lines of "x y z", X-Y ordering [0,0], [1,0], [2,0], [3,0], [0,1], ...
     bool loadFromFile(const std::string& path, std::string& error);
 
     static float bernstein(int i, float t);
@@ -34,7 +33,6 @@ public:
     bool decreaseResolution();
     int triangleCount() const { return 2 * resolution_ * resolution_; }
 
-    // (resolution + 1)^2 surface samples, row-major in v then u.
     const std::vector<Vec3>& vertices() const { return vertices_; }
 
 private:

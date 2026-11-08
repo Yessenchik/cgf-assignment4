@@ -30,6 +30,13 @@ void Camera::rotate(float deltaYawDeg, float deltaPitchDeg) {
     if (pitch_ < -kMaxPitch) pitch_ = -kMaxPitch;
 }
 
+void Camera::zoom(float deltaDistance) {
+    distance_ += deltaDistance;
+
+    if (distance_ < kMinDistance) distance_ = kMinDistance;
+    if (distance_ > kMaxDistance) distance_ = kMaxDistance;
+}
+
 Vec3 Camera::direction() const {
     float yaw = yaw_ * PI / 180.0f;
     float pitch = pitch_ * PI / 180.0f;
