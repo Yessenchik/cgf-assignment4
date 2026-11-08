@@ -1,0 +1,21 @@
+build/
+build-*/
+cmake-build-*/
+
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcworkspace/
+
+.DS_Store
+
+# Compiled files
+*.o
+*.a
+*.dylib
+
