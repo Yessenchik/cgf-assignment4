@@ -8,7 +8,6 @@ namespace {
 
 constexpr float PI = 3.14159265359f;
 
-// Connects a (rows + 1) x (cols + 1) vertex grid into counter-clockwise triangles.
 void addGridIndices(Mesh& mesh, unsigned int base, int rows, int cols) {
     unsigned int stride = cols + 1;
     for (int r = 0; r < rows; r++) {
@@ -101,7 +100,6 @@ Mesh makeRoundedCube(float halfSize, float cornerRadius, int divisions) {
                 mesh.positions.push_back(add(core, scale(n, cornerRadius)));
             }
         }
-        // Grid runs along u (columns) then v (rows); u x v = n keeps the winding outward.
         unsigned int stride = divisions + 1;
         for (int r = 0; r < divisions; r++) {
             for (int c = 0; c < divisions; c++) {

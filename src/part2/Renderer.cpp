@@ -23,7 +23,6 @@ void main() {
 }
 )";
 
-// Phong shading: the normal is interpolated across each triangle and lit per fragment.
 const char* kFragmentShader = R"(
 #version 120
 uniform vec3 uDiffuse;
@@ -45,7 +44,6 @@ void main() {
 }
 )";
 
-// Light fixed in camera (eye) coordinates, slightly above and right of the eye.
 const GLfloat kLightPosition[3] = {1.5f, 2.0f, 0.0f};
 const GLfloat kBackground[4] = {0.08f, 0.08f, 0.10f, 1.0f};
 constexpr int kPreferredSamples = 8;
@@ -230,7 +228,6 @@ void drawFrame() {
     drawObjects();
 
     if (useMsaa) {
-        // Resolve the multisampled image into the GLUT window framebuffer.
         glBindFramebuffer(GL_READ_FRAMEBUFFER, gMsaaFbo);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
         glBlitFramebuffer(0, 0, gWidth, gHeight, 0, 0, gWidth, gHeight,

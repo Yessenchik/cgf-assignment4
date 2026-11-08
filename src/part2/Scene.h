@@ -14,7 +14,7 @@ struct SceneObject {
     Vec3 position;
     float tiltDeg;
     Vec3 diffuse;
-    Vec3 probePoint;  // an object-space point that lies on the visible surface
+    Vec3 probePoint;
 };
 
 class Scene {
@@ -37,6 +37,5 @@ private:
     std::mt19937 rng_;
 };
 
-// Shared by the visible pass and the picking pass so both use identical transforms.
 void loadViewMatrices(const Camera& camera, int width, int height);
 void drawObject(const SceneObject& object, bool withNormals);

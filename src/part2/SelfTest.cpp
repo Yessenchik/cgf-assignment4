@@ -25,7 +25,6 @@ bool sameColor(Vec3 a, Vec3 b) {
     return a.x == b.x && a.y == b.y && a.z == b.z;
 }
 
-// Projects an object's probe point to GLUT window coordinates.
 bool probeWindowPosition(const SceneObject& object, int& wx, int& wy) {
     float scale = Input::pixelScale();
     int pw = (int)(Input::windowWidth() * scale);

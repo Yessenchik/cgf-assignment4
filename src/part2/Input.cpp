@@ -57,7 +57,6 @@ void reshape(int width, int height) {
     gWindowWidth = std::max(1, width);
     gWindowHeight = std::max(1, height);
 
-    // The initial viewport equals the drawable size, which reveals Retina scaling.
     if (gPixelScale <= 0.0f) {
         GLint viewport[4] = {0, 0, 0, 0};
         glGetIntegerv(GL_VIEWPORT, viewport);

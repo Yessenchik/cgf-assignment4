@@ -9,7 +9,6 @@ void init(Scene* scene, PickingBuffer* picker);
 void printHelp();
 void shutdown();
 
-// Picks at a window position (GLUT coordinates, origin top-left) and recolors the hit object.
 int clickAt(int windowX, int windowY);
 
 int windowWidth();
