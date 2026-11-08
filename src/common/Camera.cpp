@@ -8,10 +8,18 @@ namespace {
 constexpr float PI = 3.14159265359f;
 }
 
+Camera::Camera(float yaw, float pitch, float distance)
+    : initialYaw_(yaw),
+      initialPitch_(pitch),
+      initialDistance_(distance),
+      yaw_(yaw),
+      pitch_(pitch),
+      distance_(distance) {}
+
 void Camera::reset() {
-    yaw_ = kDefaultYaw;
-    pitch_ = kDefaultPitch;
-    distance_ = kDefaultDistance;
+    yaw_ = initialYaw_;
+    pitch_ = initialPitch_;
+    distance_ = initialDistance_;
 }
 
 void Camera::rotate(float deltaYawDeg, float deltaPitchDeg) {
@@ -33,16 +41,22 @@ Vec3 Camera::direction() const {
     });
 }
 
-void Camera::apply() const {
+Vec3 Camera::position() const {
     float yaw = yaw_ * PI / 180.0f;
     float pitch = pitch_ * PI / 180.0f;
 
-    float x = distance_ * std::cos(pitch) * std::cos(yaw);
-    float y = distance_ * std::cos(pitch) * std::sin(yaw);
-    float z = distance_ * std::sin(pitch);
+    return {
+        distance_ * std::cos(pitch) * std::cos(yaw),
+        distance_ * std::cos(pitch) * std::sin(yaw),
+        distance_ * std::sin(pitch)
+    };
+}
+
+void Camera::apply() const {
+    Vec3 eye = position();
 
     gluLookAt(
-        x, y, z,
+        eye.x, eye.y, eye.z,
         0.0, 0.0, 0.0,
         0.0, 0.0, 1.0
     );

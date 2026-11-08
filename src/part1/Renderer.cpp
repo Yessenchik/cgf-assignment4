@@ -13,24 +13,17 @@ namespace {
 const Camera* gCamera = nullptr;
 const BezierPatch* gPatch = nullptr;
 
-float calculateDiffuse(Vec3 a, Vec3 b, Vec3 c) {
+float calculateDiffuse(Vec3 a, Vec3 b, Vec3 c, Vec3 lightDir) {
     Vec3 edge1 = subtract(b, a);
     Vec3 edge2 = subtract(c, a);
 
     Vec3 normal = normalize(cross(edge1, edge2));
 
-    Vec3 lightDir = gCamera->direction();
-
-    float diffuse =
-        normal.x * lightDir.x +
-        normal.y * lightDir.y +
-        normal.z * lightDir.z;
-
-    return 0.2f + 0.8f * std::fmax(0.0f, diffuse);
+    return 0.2f + 0.8f * std::fmax(0.0f, dot(normal, lightDir));
 }
 
-void drawShadedTriangle(Vec3 a, Vec3 b, Vec3 c) {
-    float intensity = calculateDiffuse(a, b, c);
+void drawShadedTriangle(Vec3 a, Vec3 b, Vec3 c, Vec3 lightDir) {
+    float intensity = calculateDiffuse(a, b, c, lightDir);
 
     glColor3f(
         0.2f * intensity,
@@ -62,26 +55,23 @@ void drawAxes() {
 }
 
 void drawBezierPatch() {
-    const BezierPatch& patch = *gPatch;
-    int resolution = patch.resolution();
+    const std::vector<Vec3>& grid = gPatch->vertices();
+    int resolution = gPatch->resolution();
+    int n = resolution + 1;
+
+    Vec3 lightDir = gCamera->direction();
 
     glBegin(GL_TRIANGLES);
 
     for (int i = 0; i < resolution; i++) {
         for (int j = 0; j < resolution; j++) {
-            float u0 = (float)j / resolution;
-            float u1 = (float)(j + 1) / resolution;
+            const Vec3& p00 = grid[i * n + j];
+            const Vec3& p10 = grid[i * n + j + 1];
+            const Vec3& p01 = grid[(i + 1) * n + j];
+            const Vec3& p11 = grid[(i + 1) * n + j + 1];
 
-            float v0 = (float)i / resolution;
-            float v1 = (float)(i + 1) / resolution;
-
-            Vec3 p00 = patch.evaluate(u0, v0);
-            Vec3 p10 = patch.evaluate(u1, v0);
-            Vec3 p01 = patch.evaluate(u0, v1);
-            Vec3 p11 = patch.evaluate(u1, v1);
-
-            drawShadedTriangle(p00, p10, p11);
-            drawShadedTriangle(p00, p11, p01);
+            drawShadedTriangle(p00, p10, p11, lightDir);
+            drawShadedTriangle(p00, p11, p01, lightDir);
         }
     }
 

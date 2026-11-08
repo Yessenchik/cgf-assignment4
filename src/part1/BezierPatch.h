@@ -2,6 +2,9 @@
 
 #include "Vec3.h"
 
+#include <string>
+#include <vector>
+
 class BezierPatch {
 public:
     static constexpr int kSize = 4;
@@ -12,6 +15,9 @@ public:
 
     BezierPatch();
 
+    // 16 lines of "x y z", X-Y ordering [0,0], [1,0], [2,0], [3,0], [0,1], ...
+    bool loadFromFile(const std::string& path, std::string& error);
+
     static float bernstein(int i, float t);
 
     Vec3 evaluate(float u, float v) const;
@@ -19,15 +25,23 @@ public:
     const Vec3& controlPoint(int row, int col) const { return points_[row][col]; }
 
     int selectedIndex() const { return selected_; }
+    const Vec3& selectedPoint() const;
     void selectNext();
     void moveSelected(float dx, float dy, float dz);
 
     int resolution() const { return resolution_; }
-    void increaseResolution();
-    void decreaseResolution();
+    bool increaseResolution();
+    bool decreaseResolution();
+    int triangleCount() const { return 2 * resolution_ * resolution_; }
+
+    // (resolution + 1)^2 surface samples, row-major in v then u.
+    const std::vector<Vec3>& vertices() const { return vertices_; }
 
 private:
+    void rebuildMesh();
+
     Vec3 points_[kSize][kSize];
     int selected_ = 0;
     int resolution_ = kDefaultResolution;
+    std::vector<Vec3> vertices_;
 };
